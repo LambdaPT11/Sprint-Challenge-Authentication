@@ -39,11 +39,30 @@ describe('auth functionality', function () {
     describe('login endpoint', function () {
         it('check status code', function () {
             return request(server)
-                .post('api/auth/login')
+                .post('api/auth/register')
                 .send({ username: 'me', password: 'pass' })
                 .then(res => {
-                    expect(res.status).toBe(201);
-                })
+                    return request(server)
+                        .post('/api/auth/login')
+                        .send({ username: 'me', password: 'pass' })
+                        .then(res => {
+                            expect(res.status).toBe(200);
+                        })
+                });
+        });
+
+        it('check for json', function () {
+            return request(server)
+                .post('/api/auth/register')
+                .send({ username: 'me', password: 'pass' })
+                .then(res => {
+                    return request(server)
+                        .post('/api/auth/login')
+                        .send({ username: 'me', password: 'pass' })
+                        .then(res => {
+                            expect(res.type).toMatch(/json/i);
+                        })
+                });
         });
     });
 });

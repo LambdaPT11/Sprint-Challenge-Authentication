@@ -1,19 +1,21 @@
 const jwt = require('jsonwebtoken');
-const secret = process.env.JWT_SECRET || 'keep it secret'
+// 
 
 module.exports = (req, res, next) => {
   const { authorization } = req.headers;
 
-  if (suthorization) {
+  const secret = process.env.JWT_SECRET || 'keep it secret'
+
+  if (authorization) {
     jwt.verify(authorization, secret, (err, decodedToken) => {
       if(err) {
         res.status(401).json({ msg: 'invalid token' })
       }else{
-        req.token = decodedToken;
+        req.decodedToken = decodedToken;
         next();
       }
-    })
+    });
   }else{
-  res.status(401).json({ you: 'shall not pass!' });
+  res.status(400).json({ you: 'shall not pass!' });
   }
 };
