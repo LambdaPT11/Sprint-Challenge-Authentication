@@ -17,4 +17,8 @@ server.use('/api/auth', authRouter);
 server.use('/api/users', authenticate, usersRouter);
 server.use('/api/jokes', authenticate, jokesRouter);
 
+server.get('/', (req, res) => {
+    res.status(200).json({ api: 'up', dbenv: process.env.DB_ENV });
+});
+
 module.exports = server;
