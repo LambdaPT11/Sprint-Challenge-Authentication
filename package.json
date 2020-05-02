@@ -4,7 +4,11 @@
   "description": "Authentication Sprint Challenge",
   "main": "index.js",
   "scripts": {
+    "test": "",
     "server": "nodemon index.js"
+  },
+  "jest": {
+    "testEnvironment": "node"
   },
   "repository": {
     "type": "git",
@@ -28,6 +32,7 @@
     "sqlite3": "^4.1.1"
   },
   "devDependencies": {
+    "jest": "^25.5.3",
     "nodemon": "^2.0.2"
   }
 }
